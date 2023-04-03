@@ -9,16 +9,21 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
+    var paddle = SKSpriteNode()
     var ball = SKShapeNode()
+    var brick = SKSpriteNode()
     override func didMove(to view: SKView) {
         createBackground()
         makeBall()
+        makePaddle()
         // Get label node from scene and store it for use later
         
     }
     
     func resetGame() {
         makeBall()
+        makePaddle()
+        makeBrick()
     }
     
     func createBackground(){
@@ -57,4 +62,23 @@ class GameScene: SKScene {
         addChild(ball)
         
     }
+    func makePaddle() {
+        paddle.removeFromParent()
+        paddle = SKSpriteNode(color: .white, size: CGSize(width: frame.width/4, height: 20))
+        paddle.position = CGPoint(x: frame.midX, y: frame.midY + 125)
+        paddle.name = "paddle"
+        paddle.physicsBody = SKPhysicsBody(rectangleOf: paddle.size)
+        paddle.physicsBody?.isDynamic = false
+        addChild(paddle)
+    }
+    func makeBrick() {
+        brick.removeFromParent()
+        brick = SKSpriteNode(color: .blue, size: CGSize(width: 50, height: 20))
+        brick.position = CGPoint(x: frame.midX, y: frame.maxY - 50)
+        brick.name = "brick"
+        brick.physicsBody = SKPhysicsBody(rectangleOf: brick.size)
+        brick.physicsBody?.isDynamic = false
+        addChild(brick)
+    }
+    
 }
